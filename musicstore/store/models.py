@@ -57,6 +57,11 @@ class AlbumProduct(models.Model):
         return url
 
 
+# class AddAudio(models.Model):
+#     add = models.ForeignKey(AlbumProduct, default=None, on_delete=models.CASCADE)
+#     add_audio = models.FileField(default=True, upload_to='audio')
+
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)

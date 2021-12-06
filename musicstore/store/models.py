@@ -30,6 +30,33 @@ class Product(models.Model):
         return url
 
 
+class AlbumProduct(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    digital = models.BooleanField(default=True, null=True, blank=False)
+    image = models.ImageField(null=True, blank=True, upload_to='images')
+    audio = models.FileField(default=True, upload_to='audio')
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
+    @property
+    def audioURL(self):
+        try:
+            url = self.audio.url
+        except:
+            url = ''
+        return url
+
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
@@ -63,6 +90,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    albumProduct = models.ForeignKey(AlbumProduct, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)

@@ -3,98 +3,31 @@
 {% block content %}
 
 
-    <title>Register</title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-
-    <style>
-        .login_btn {
-            width: 100%;
-            background: #33ccff !important;
-            color: white !important;
-        }
-
-        .login_btn:focus {
-            box-shadow: none !important;
-            outline: 0px !important;
-        }
-
-        .user_card {
-            margin-top: auto;
-            margin-bottom: auto;
-            position: relative;
-			display: flex;
-			justify-content: center;
-			flex-direction: column;
-			padding: 10px;
-        }
-
-        .form_container {
-			margin-top: 20px;
-		}
-    </style>
-
-    <div class="container h-100">
-        <div class="d-flex justify-content-center h-100">
-            <div class="user_card">
-                <div class="d-flex justify-content-center">
-                    <h3 id="form-title">REGISTER ACCOUNT</h3>
-                </div>
-                <div class="d-flex justify-content-center form_container">
-
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            {{form.username}}
-                        </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
-                            </div>
-                            {{form.email}}
-                        </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            {{form.password1}}
-                        </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            {{form.password2}}
-                        </div>
-
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <input class="btn login_btn" type="submit" value="Register Account">
-                        </div>
-                    </form>
-                </div>
-
-                <div class="mt-4">
-                    <div class="d-flex justify-content-center links">
-                        Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
-                    </div>
-                </div>
-            </div>
+<div class="container register">
+    <h3>REGISTER ACCOUNT</h3><br/>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">User name</label>
+            <input name="username" type="text" class="form-control" id="username">
         </div>
-    </div>
-
-    <script>
-        var form_fields = document.getElementsByTagName('input')
-        form_fields[0].placeholder = 'Username';
-        form_fields[1].placeholder = 'Email';
-        form_fields[2].placeholder = 'Enter Password';
-        form_fields[3].placeholder = 'Repeat Password';
-
-        for (var field in form_fields){
-            form_fields[field].className += ' form-control'
-        }
-    </script>
-
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp">
+            <small id="pwdHelp" class="form-text text-muted">No less than 8 symbols</small>
+        </div>
+        <div class="form-group">
+            <label for="password2">Repeat password</label>
+            <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help">
+        </div>
+        <button type="submit" class="btn btn-primary register-button">Register Account</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}"><button class="btn btn-outline-secondary">Login</button></a></p>
+</div>
 
 {% endblock content %}

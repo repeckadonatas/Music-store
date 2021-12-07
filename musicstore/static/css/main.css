@@ -115,3 +115,28 @@ h1,h2,h3,h4,h5,h6{
 .mb-3{
     width: 80%;
 }
+
+.login_btn {
+    width: 100%;
+    background: #33ccff !important;
+    color: white !important;
+}
+
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+.user_card {
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.form_container {
+    margin-top: 20px;
+}

@@ -3,13 +3,16 @@ from .models import *
 from django.http import JsonResponse
 import json
 import datetime
+from django.contrib.auth.models import User
 
 from .utils import cookieCart
 from .forms import CreateUserForm, AudioForm
+# from django.contrib.auth.forms import UserCreationForm
+
 
 from django.contrib import messages
 
-# from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -143,19 +146,27 @@ def processOrder(request):
     return JsonResponse('Payment complete', safe=False)
 
 
+@csrf_protect
 def registerPage(request):
-    form = CreateUserForm()
-
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account was successfully created!')
-            return redirect('login')
-
-    context = {'form': form}
-    return render(request, 'store/register.html', context)
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        if password == password2:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, f'Username {username} is already taken!')
+                return redirect('register')
+            else:
+                if User.objects.filter(email=email).exists():
+                    messages.error(request, f'User with this email {email} is already registered!')
+                    return redirect('register')
+                else:
+                    User.objects.create_user(username=username, email=email, password=password)
+        else:
+            messages.error(request, 'Passwords do not match!')
+            return redirect('register')
+    return render(request, 'store/register.html')
 
 
 def loginPage(request):

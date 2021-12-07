@@ -177,7 +177,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('store')
+            return redirect('music')
         else:
             messages.info(request, 'Username and/or password is incorrect!')
 

@@ -15,33 +15,27 @@
 
         </div>
 
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <div class="mb-0" >
+<!--        Collapsable item-->
+        <div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Listen to the album
+            </button>
 
-                        <button class="btn btn-outline-primary" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            Listen to the album
-                        </button>
+            <button style="display: inline-block; float: right; margin-left: 10px" data-product={{albumProduct.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart card-btn">
+                Add to Cart
+            </button>
+            <h4 style="display: inline-block; float: right"><strong>EUR {{albumProduct.price|floatformat:2}}</strong></h4>
 
-                        <button style="display: inline-block; float: right; margin-left: 10px" data-product={{albumProduct.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart card-btn">Add to Cart</button>
-                        <h4 style="display: inline-block; float: right"><strong>EUR {{albumProduct.price|floatformat:2}}</strong></h4>
-
-                    </div>
-                </div>
-
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-
-                         <audio controls>
-                             <source src="{{albumProduct.audioURL}}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                         </audio>
-
-                    </div>
-                </div>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <audio controls>
+                     <source src="{{albumProduct.audioURL}}" type="audio/mpeg">
+                Your browser does not support the audio element.
+                 </audio>
             </div>
         </div>
+
         {% endfor %}
     </div>
 
